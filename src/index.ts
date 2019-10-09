@@ -6,7 +6,7 @@ Vue.use(ElementUI);
 
 
 import './error/error';
-import App from './App';
+import App from './App.vue';
 import router from './router/router'
 
 new Vue({

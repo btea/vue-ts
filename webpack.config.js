@@ -1,6 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
-var HtmlVwebpackPlugin = require('html-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var VueLoaderPlugin = require('vue-loader/lib/plugin');
 var webpackBar  = require('webpackbar');
@@ -17,6 +17,9 @@ module.exports = {
             return assetFilename.endsWith('.js');
         
         }
+    },
+    entry: {
+        app: './src/index.ts'
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -66,17 +69,31 @@ module.exports = {
                 options: {
                     name: 'fonts/[hash:8].[ext]'
                 }
+            },
+            {
+                test: /\.ts$/,
+                exclude: /node-modules/,
+                enforce: 'pre',
+                loader: 'tslint-loader'
+            },
+            {
+                test: /\.tsx$/,
+                exclude: /node_modules/,
+                loader: 'ts-loader',
+                options: {
+                    appendTsSuffixTo: [/\.vue$/]
+                }
             }
         ]
     },
     resolve: {
-        extensions: ['.js','.json','.vue','.css','.less'],
+        extensions: ['.js','.ts','.json','.vue','.css','.less'],
         alias: {
             '@': path.resolve(__dirname, 'src')
         }
     },
     plugins: [
-        new HtmlVwebpackPlugin({
+        new HtmlWebpackPlugin({
             template: './public/index.html',
             filename: './index.html'
         }),
