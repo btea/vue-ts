@@ -28,12 +28,6 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.vue$/,
-                use: {
-                    loader: 'vue-loader'
-                }
-            },
-            {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: {
@@ -71,18 +65,27 @@ module.exports = {
                 }
             },
             {
-                test: /\.ts$/,
-                exclude: /node-modules/,
-                enforce: 'pre',
-                loader: 'tslint-loader'
+                test: /\.vue$/,
+                loader: 'vue-loader',
+                options: {
+                    loaders: {
+                        ts: 'ts-loader',
+                        tsx: 'babel-loader!ts-loader'
+                    }
+                }
             },
             {
-                test: /\.tsx$/,
+                test: /\.ts$/,
                 exclude: /node_modules/,
                 loader: 'ts-loader',
                 options: {
                     appendTsSuffixTo: [/\.vue$/]
                 }
+            },
+            { 
+                test: /\.tsx$/, 
+                loader: 'babel-loader!ts-loader', 
+                options: { appendTsxSuffixTo: [/TSX\.vue$/] } 
             }
         ]
     },
