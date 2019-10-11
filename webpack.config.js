@@ -25,6 +25,7 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'js/[name].[hash:8].js'
     },
+    devtool: 'source-map',
     module: {
         rules: [
             {
